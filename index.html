@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday!</title>
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="title">Happy Birthday!</h1>
+        <div class="balloons">
+          <div class="balloon"></div>
+          <div class="balloon"></div>
+          <div class="balloon"></div>
+          <div class="balloon"></div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="message">
+          <p>Selamat ulang tahun sayangku!</p>
+          <p>Semoga hari ini penuh dengan kebahagiaan dan tawa.</p>
+          <p>Kamu adalah orang terbaik dalam hidupku ❤️</p>
+        </div>
+
+        <button id="surpriseBtn" class="surprise-btn">
+          Click for a Surprise!
+        </button>
+      </main>
+    </div>
+
+    <!-- Popup Container -->
+    <div id="popupContainer" class="popup-container hidden">
+      <div class="popup-content">
+        <h3>Mau dipanggil apa?</h3>
+        <div class="options">
+          <button id="optionIsabela" class="option-btn">Isabela</button>
+          <button id="optionBela" class="option-btn">Bela</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Funny Popup -->
+    <div id="funnyPopup" class="funny-popup hidden">
+      <div class="funny-content">
+        <h3>wkwkwkkw</h3>
+        <button id="closeFunnyBtn" class="close-btn">Close</button>
+      </div>
+    </div>
+
+    <script src="/src/scripts/main.js" type="module"></script>
+  </body>
+</html>
