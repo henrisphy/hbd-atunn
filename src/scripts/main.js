@@ -5,6 +5,50 @@ document.addEventListener("DOMContentLoaded", () => {
   const optionIsabela = document.getElementById("optionIsabela");
   const optionBela = document.getElementById("optionBela");
   const closeFunnyBtn = document.getElementById("closeFunnyBtn");
+  const body = document.body;
+
+  // Show popup when surprise button is clicked
+  surpriseBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Trigger background animation
+    body.classList.add("background-animation");
+
+    // Create heart particles
+    createHearts();
+
+    // Show popup after short delay
+    setTimeout(() => {
+      popupContainer.classList.add("active");
+      body.classList.remove("background-animation");
+    }, 1000);
+
+    createConfetti();
+  });
+
+  // Function to create heart particles
+  function createHearts() {
+    const colors = ["#ff758c", "#ff7eb3", "#ff8e9e", "#ff9a9e", "#ffb3c1"];
+    const container = document.querySelector(".container");
+
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "🎁";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = window.innerHeight + "px";
+      heart.style.fontSize = Math.random() * 40 + 20 + "px";
+      heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+      heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+      document.body.appendChild(heart);
+
+      // Remove heart after animation
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+  }
 
   // Pastikan popup awalnya tersembunyi
   popupContainer.classList.remove("active");
