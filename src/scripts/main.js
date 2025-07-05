@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const nextCardBtn = document.getElementById("nextCardBtn");
   const surpriseBtn = document.getElementById("surpriseBtn");
   const popupContainer = document.getElementById("popupContainer");
   const funnyPopup = document.getElementById("funnyPopup");
@@ -6,18 +7,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const optionBela = document.getElementById("optionBela");
   const closeFunnyBtn = document.getElementById("closeFunnyBtn");
   const body = document.body;
+  const messageCards = document.querySelectorAll(".message-card");
 
-  // Show popup when surprise button is clicked
+  let currentCardIndex = 0;
+
+  // Initialize
+  popupContainer.classList.remove("active");
+  funnyPopup.classList.remove("active");
+  surpriseBtn.classList.add("hidden");
+
+  // Next card button functionality
+  nextCardBtn.addEventListener("click", () => {
+    // Hide current card
+    messageCards[currentCardIndex].classList.remove("active");
+
+    // Move to next card
+    currentCardIndex++;
+
+    if (currentCardIndex < messageCards.length) {
+      // Show next card
+      messageCards[currentCardIndex].classList.add("active");
+    } else {
+      nextCardBtn.classList.add("hidden");
+      surpriseBtn.classList.remove("hidden");
+    }
+  });
+
+  // Surprise button functionality (same as before)
   surpriseBtn.addEventListener("click", (e) => {
     e.preventDefault();
-
-    // Trigger background animation
     body.classList.add("background-animation");
-
-    // Create heart particles
     createHearts();
 
-    // Show popup after short delay
     setTimeout(() => {
       popupContainer.classList.add("active");
       body.classList.remove("background-animation");
@@ -53,14 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Pastikan popup awalnya tersembunyi
   popupContainer.classList.remove("active");
   funnyPopup.classList.remove("active");
-
-  // Show popup when surprise button is clicked
-  surpriseBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    popupContainer.classList.add("active");
-    createConfetti();
-    console.log("Popup should be visible now"); // Untuk debugging
-  });
 
   // Handle option selection
   optionIsabela.addEventListener("click", (e) => {

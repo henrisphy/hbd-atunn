@@ -20,7 +20,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 400px; /* Lebih kecil untuk mobile */
+  max-width: 400px;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -39,31 +39,71 @@ body {
 }
 
 .title {
-  font-size: 2rem; /* Lebih kecil */
+  font-size: 2rem;
   margin-bottom: 0.5rem;
   animation: fadeInDown 1s ease;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   font-weight: 700;
 }
 
-.message {
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 1rem; /* Lebih kecil */
-  line-height: 1.5;
-  animation: fadeIn 1.5s ease;
+.message-container {
+  position: relative;
+  min-height: 300px;
+  overflow: hidden;
 }
 
-.message p {
+.message-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+  visibility: hidden;
+  text-align: justify;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.message-card.active {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.message-card p {
   margin-bottom: 0.8rem;
+}
+
+.next-card-btn {
+  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  margin: 0.8rem auto;
+  display: block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+  font-weight: 700;
+  min-width: 200px;
+}
+
+.next-card-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
 }
 
 .surprise-btn {
   background: linear-gradient(45deg, #ff758c, #ff7eb3);
   color: white;
   border: none;
-  padding: 0.8rem 1.5rem; /* Lebih compact */
-  font-size: 1rem; /* Lebih kecil */
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
   border-radius: 50px;
   cursor: pointer;
   margin: 0.8rem auto;
@@ -72,7 +112,16 @@ body {
   box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
   animation: pulse 2s infinite;
   font-weight: 700;
-  min-width: 200px; /* Lebar minimum untuk mudah di-tap */
+  min-width: 200px;
+}
+
+.surprise-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
+}
+
+.hidden {
+  display: none;
 }
 
 /* Balloon animations */
@@ -88,8 +137,8 @@ body {
 
 .balloon {
   position: absolute;
-  width: 30px; /* Lebih kecil */
-  height: 40px; /* Lebih kecil */
+  width: 30px;
+  height: 40px;
   background: #ff758c;
   border-radius: 50%;
   animation: float 6s ease-in-out infinite;
@@ -154,7 +203,7 @@ body {
   border-radius: 15px;
   text-align: center;
   width: 90%;
-  max-width: 300px; /* Lebih kecil untuk mobile */
+  max-width: 300px;
   transform: scale(0.9);
   transition: transform 0.3s ease;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -168,7 +217,7 @@ body {
 
 .options {
   display: flex;
-  flex-direction: column; /* Susun vertikal untuk mobile */
+  flex-direction: column;
   gap: 0.8rem;
   margin-top: 1.5rem;
 }
@@ -182,7 +231,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
-  width: 100%; /* Full width */
+  width: 100%;
   font-weight: 700;
 }
 
@@ -242,6 +291,41 @@ body {
   }
 }
 
+/* Background Animation */
+@keyframes mobileBackgroundPulse {
+  0%,
+  100% {
+    background-color: #ff9a9e;
+  }
+  50% {
+    background-color: #ff7eb3;
+  }
+}
+
+.background-animation {
+  animation: mobileBackgroundPulse 0.5s ease 3;
+}
+
+/* Heart Particles */
+.heart {
+  position: absolute;
+  pointer-events: none;
+  animation: float-up 4s ease-in forwards;
+  font-size: 24px;
+  z-index: 10;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
 /* Confetti effect */
 .confetti {
   position: absolute;
@@ -256,95 +340,29 @@ body {
   .header {
     padding: 1.2rem;
   }
-
   .title {
     font-size: 1.8rem;
   }
-
-  .message {
+  .message-card {
     padding: 1.2rem;
     font-size: 0.9rem;
   }
-
   .balloon {
     width: 25px;
     height: 35px;
   }
-
   .popup-content,
   .funny-content {
     padding: 1.2rem;
   }
 }
 
-/* Animasi Background */
-@keyframes gradientPulse {
-  0% {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-  }
-  25% {
-    background: linear-gradient(135deg, #fad0c4 0%, #ff9a9e 100%);
-  }
-  50% {
-    background: linear-gradient(135deg, #ff7eb3 0%, #ff758c 100%);
-  }
-  75% {
-    background: linear-gradient(135deg, #ff8e9e 0%, #ff9a9e 100%);
-  }
-  100% {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-  }
-}
-
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-5px);
-  }
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(5px);
-  }
-}
-
-.background-animation {
-  animation: gradientPulse 2s ease infinite, shake 0.5s ease;
-}
-
-/* Heart Particles */
-.heart {
-  position: absolute;
-  pointer-events: none;
-  animation: float-up 4s ease-in forwards;
-}
-
-@keyframes float-up {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-100vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* Untuk perangkat sangat kecil */
 @media (max-width: 360px) {
   .title {
     font-size: 1.6rem;
   }
-
-  .surprise-btn {
+  .surprise-btn,
+  .next-card-btn {
     padding: 0.7rem 1.2rem;
     font-size: 0.9rem;
     min-width: 180px;
